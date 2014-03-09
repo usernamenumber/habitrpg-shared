@@ -69,19 +69,11 @@ gear =
       5: text: (-> i18n.t('weaponHealer5Text')), notes: (-> i18n.t('weaponHealer5Notes', {int: 9})), int: 9, value:90
       6: text: (-> i18n.t('weaponHealer6Text')), notes: (-> i18n.t('weaponHealer6Notes', {int: 11})), int: 11, value:120, last: true
     special:
-<<<<<<< HEAD
-      0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes')), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
-      1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes')), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes')), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
-      3: text: (-> i18n.t('weaponSpecial3Text')), notes: (-> i18n.t('weaponSpecial3Notes')), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
-      critical: text: (-> i18n.t('weaponSpecialCriticalText')), notes: (-> i18n.t('weaponSpecialCriticalNotes')), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
-=======
       0: text: (-> i18n.t('weaponSpecial0Text')), notes: (-> i18n.t('weaponSpecial0Notes', {str: 20})), str: 20, value:150, canOwn: ((u)-> +u.backer?.tier >= 70)
       1: text: (-> i18n.t('weaponSpecial1Text')), notes: (-> i18n.t('weaponSpecial1Notes', {attrs: 6})), str: 6, per: 6, con: 6, int: 6, value:170, canOwn: ((u)-> +u.contributor?.level >= 4)
-      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes', {attrs: 25})), str: 25, per: 25, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
+      2: text: (-> i18n.t('weaponSpecial2Text')), notes: (-> i18n.t('weaponSpecial2Notes', {attrs: 25})), str: 25, per: 25, value:200, canOwn: ((u)-> (+u.backer?.tier >= 300) or u.items.gear.owned.weapon_special_2?)
       3: text: (-> i18n.t('weaponSpecial3Text')), notes: (-> i18n.t('weaponSpecial3Notes', {attrs: 17})), str: 17, int: 17, con: 17, value:200, canOwn: ((u)-> +u.backer?.tier >= 300)
       critical: text: (-> i18n.t('weaponSpecialCriticalText')), notes: (-> i18n.t('weaponSpecialCriticalNotes', {attrs: 40})), str: 40, per: 40, value:200, canOwn: ((u)-> !!u.contributor?.critical)
->>>>>>> chore(i18n): start moving attributes values to interpolation
       # Winter event gear
       yeti:       event: events.winter, canOwn: ((u)->u.stats.class is 'warrior' ), text: (-> i18n.t('weaponSpecialYetiText')), notes: (-> i18n.t('weaponSpecialYetiNotes', {str: 15})), str: 15, value:90
       ski:        event: events.winter, canOwn: ((u)->u.stats.class is 'rogue'   ), text: (-> i18n.t('weaponSpecialSkiText')), notes: (-> i18n.t('weaponSpecialSkiNotes', {str: 8})), str: 8, value: 90
@@ -140,7 +132,7 @@ gear =
       springMage:     event: events.spring, specialClass: 'wizard',    text: 'Rodentia Robes', notes: 'Mice are nice! Adds 9 points to INT. Limited Edition 2014 Spring Gear.', value: 90, int: 9
       springHealer:   event: events.spring, specialClass: 'healer',  text: 'Fuzzy Puppy Robes', notes: 'Warm and snuggly, but protects its owner from harm. Adds 15 points to CON. Limited Edition 2014 Spring Gear.', value: 90, con: 15
     mystery:
-      201402: text: 'Messenger Robes', notes: "Shimmering and strong, these robes have many pockets to carry letters.", mystery:mystery['201402'], value: 10
+      201402: text: (-> i18n.t('armorMystery201402Text')), notes: (-> i18n.t('armorMystery201402Notes')), mystery:mystery['201402'], value: 10
       201403: text: 'Forest Walker Armor', notes: "This mossy armor of woven wood bends with the movement of the wearer.", mystery:mystery['201403'], value: 10
 
   head:
@@ -190,7 +182,7 @@ gear =
       springMage:     event: events.spring, specialClass: 'wizard',    text:'Swiss Cheese Hat', notes:'This hat stores lots of powerful magic! Try not to nibble it. Adds 7 points to PER. Limited Edition 2014 Spring Gear.',value: 40,per: 7
       springHealer:   event: events.spring, specialClass: 'healer',  text:'Crown of Friendship', notes:"This crown symbolizes loyalty and companionship. A dog is an adventurer's best friend, after all! Adds 7 points to INT. Limited Edition 2014 Spring Gear.", value: 40, int: 7
     mystery:
-      201402: text: 'Winged Helm', notes: "This winged circlet imbues the wearer with the speed of the wind!", mystery:mystery['201402'], value: 10
+      201402: text: (-> i18n.t('headMystery201402Text')), notes: (-> i18n.t('headMystery201402Notes')), mystery:mystery['201402'], value: 10
 
   shield:
     base:
@@ -236,7 +228,7 @@ gear =
     base:
       0: text: (-> i18n.t('backBase0Text')), notes: (-> i18n.t('backBase0Notes')), value:0
     mystery:
-      201402: text: 'Golden Wings', notes: "These shining wings have feathers that glitter in the sun!", mystery:mystery['201402'], value: 10
+      201402: text: (-> i18n.t('backMystery201402Text')), notes: (-> i18n.t('headMystery201402Notes')), mystery:mystery['201402'], value: 10
       201404: text: 'Twilight Butterfly Wings', notes: "Be a butterfly and flutter by!", mystery:mystery['201404'], value: 10
     special:
       wondercon_red: text: 'Mighty Cape', notes: 'Swishes with strength and beauty. Special edition convention armor.', value: 0, mystery:mystery.wondercon
