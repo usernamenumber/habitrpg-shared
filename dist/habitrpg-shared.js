@@ -11963,7 +11963,7 @@ var _;
 _ = require('lodash');
 
 module.exports = {
-  strings: {},
+  strings: null,
   translations: {},
   t: function(stringName) {
     var locale, string, stringNotFound, vars;
@@ -11975,7 +11975,7 @@ module.exports = {
       vars = arguments[1];
       locale = arguments[2];
     }
-    string = locale ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
+    string = locale && !strings ? module.exports.translations[locale][stringName] : module.exports.strings[stringName];
     if (string) {
       if (vars) {
         return _.template(string, vars);
@@ -11983,7 +11983,7 @@ module.exports = {
         return string;
       }
     } else {
-      stringNotFound = locale ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
+      stringNotFound = locale && !strings ? module.exports.translations[locale].stringNotFound : module.exports.strings.stringNotFound;
       return _.template(stringNotFound, {
         string: stringName
       });
@@ -11994,7 +11994,11 @@ module.exports = {
 
 },{"lodash":3}],7:[function(require,module,exports){
 (function (process){
+<<<<<<< HEAD
 var $w, api, content, moment, preenHistory, sanitizeOptions, sortOrder, _,
+=======
+var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, _,
+>>>>>>> refactor(i18n): start using strings for api messages
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
@@ -12003,9 +12007,11 @@ _ = require('lodash');
 
 content = require('./content.coffee');
 
+i18n = require('./i18n.coffee');
+
 api = module.exports = {};
 
-api.i18n = require('./i18n.coffee');
+api.i18n = i18n;
 
 $w = function(s) {
   return s.split(' ');
@@ -12628,7 +12634,9 @@ api.wrap = function(user, main) {
         }
         return typeof cb === "function" ? cb((item ? {
           code: 200,
-          message: "Your " + (item.text()) + " broke."
+          message: i18n.t('messageLostItem', {
+            itemText: item.text
+          }, req.language)
         } : null), user) : void 0;
       },
       reset: function(req, cb) {
@@ -12661,7 +12669,7 @@ api.wrap = function(user, main) {
         if (user.balance < 1) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "Not enough gems."
+            message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
         user.balance--;
@@ -12681,7 +12689,7 @@ api.wrap = function(user, main) {
         if (user.balance < 2 && user.stats.lvl < 100) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "Not enough gems."
+            message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
         if (user.stats.lvl < 100) {
@@ -12783,7 +12791,7 @@ api.wrap = function(user, main) {
         if (!task) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: "Task not found."
+            message: i18n.t('messageTaskNotFound', req.language)
           }) : void 0;
         }
         if (!((to != null) && (from != null))) {
@@ -12798,7 +12806,7 @@ api.wrap = function(user, main) {
         if (!(task = user.tasks[(_ref = req.params) != null ? _ref.id : void 0])) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: "Task not found"
+            message: i18n.t('messageTaskNotFound', req.language)
           }) : void 0;
         }
         _.merge(task, _.omit(req.body, ['checklist', 'id']));
@@ -12816,7 +12824,7 @@ api.wrap = function(user, main) {
         if (!task) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: 'Task not found'
+            message: i18n.t('messageTaskNotFound', req.language)
           }) : void 0;
         }
         i = user[task.type + "s"].indexOf(task);
@@ -12862,7 +12870,7 @@ api.wrap = function(user, main) {
         if (!~i) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: 'Tag not found'
+            message: i18n.t('messageTagNotFound', req.language)
           }) : void 0;
         }
         user.tags[i].name = req.body.name;
@@ -12877,7 +12885,7 @@ api.wrap = function(user, main) {
         if (!~i) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: 'Tag not found'
+            message: i18n.t('messageTagNotFound', req.language)
           }) : void 0;
         }
         tag = user.tags[i];
@@ -12900,25 +12908,25 @@ api.wrap = function(user, main) {
         if (!userPets[pet]) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: ":pet not found in user.items.pets"
+            message: i18n.t('messagePetNotFound', req.language)
           }) : void 0;
         }
         if (!((_ref2 = user.items.food) != null ? _ref2[food.key] : void 0)) {
           return typeof cb === "function" ? cb({
             code: 404,
-            message: ":food not found in user.items.food"
+            message: i18n.t('messageFoodNotFound', req.language)
           }) : void 0;
         }
         if (content.specialPets[pet] || (egg === "Egg")) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "Can't feed this pet."
+            message: i18n.t('messageCannotFeedPet', req.language)
           }) : void 0;
         }
         if (user.items.mounts[pet]) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "You already have that mount. Try feeding another pet."
+            message: i18n.t('messageAlreadyMount', req.language)
           }) : void 0;
         }
         message = '';
@@ -12928,17 +12936,25 @@ api.wrap = function(user, main) {
           if (pet === user.items.currentPet) {
             user.items.currentPet = "";
           }
-          return message = "You have tamed " + egg + ", let's go for a ride!";
+          return message = i18n.t('messageAlreadyMount', {
+            egg: egg
+          }, req.language);
         };
         if (food.key === 'Saddle') {
           evolve();
         } else {
           if (food.target === potion) {
             userPets[pet] += 5;
-            message = "" + egg + " really likes the " + (food.text()) + "!";
+            message = i18n.t('messageLikesFood', {
+              egg: egg,
+              foodText: food.text
+            }, req.language);
           } else {
             userPets[pet] += 2;
-            message = "" + egg + " eats the " + (food.text()) + " but doesn't seem to enjoy it.";
+            message = i18n.t('messageDontEnjoyFood', {
+              egg: egg,
+              foodText: food.text
+            }, req.language);
           }
           if (userPets[pet] >= 50 && !user.items.mounts[pet]) {
             evolve();
