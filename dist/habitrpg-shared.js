@@ -12910,7 +12910,7 @@ api.wrap = function(user, main) {
         if (user.balance < (item.value / 4)) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: 'Not enough gems.'
+            message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
         if (!user.items[type][key]) {
@@ -12936,7 +12936,7 @@ api.wrap = function(user, main) {
         if (user.stats.gp < item.value) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: 'Not enough gold.'
+            message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
         if (item.key === 'potion') {
@@ -12947,9 +12947,11 @@ api.wrap = function(user, main) {
         } else {
           user.items.gear.equipped[item.type] = item.key;
           user.items.gear.owned[item.key] = true;
-          message = user.fns.handleTwoHanded(item);
+          message = user.fns.handleTwoHanded(item, null, req);
           if (message == null) {
-            message = "Bought " + (item.text()) + ".";
+            message = i18n.t('messageBought', {
+              itemText: item.text
+            }, req.language);
           }
           if (!user.achievements.ultimateGear && item.last) {
             user.fns.ultimateGear();
@@ -12995,10 +12997,12 @@ api.wrap = function(user, main) {
             item = content.gear.flat[key];
             if (user.items.gear[type][item.type] === key) {
               user.items.gear[type][item.type] = "" + item.type + "_base_0";
-              message = "" + item.text + " un-equipped.";
+              message = i18n.t('messageBought', {
+                itemText: item.text
+              }, req.language);
             } else {
               user.items.gear[type][item.type] = item.key;
-              message = user.fns.handleTwoHanded(item, type);
+              message = user.fns.handleTwoHanded(item, type, req);
             }
         }
         return typeof cb === "function" ? cb((message ? {
@@ -13018,14 +13022,14 @@ api.wrap = function(user, main) {
         if (!(user.items.eggs[egg] > 0 && user.items.hatchingPotions[hatchingPotion] > 0)) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "You're missing either that egg or that potion"
+            message: i18n.t('messageMissingEggPotion', req.language)
           }) : void 0;
         }
         pet = "" + egg + "-" + hatchingPotion;
         if (user.items.pets[pet] && user.items.pets[pet] > 0) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "You already have that pet. Try hatching a different combination!"
+            message: i18n.t('messageAlreadyPet', req.language)
           }) : void 0;
         }
         user.items.pets[pet] = 5;
@@ -13033,7 +13037,7 @@ api.wrap = function(user, main) {
         user.items.hatchingPotions[hatchingPotion]--;
         return typeof cb === "function" ? cb({
           code: 200,
-          message: "Your egg hatched! Visit your stable to equip your pet."
+          message: i18n.t('messageHatched', req.language)
         }, user.items) : void 0;
       },
       unlock: function(req, cb, ga) {
@@ -13045,7 +13049,7 @@ api.wrap = function(user, main) {
         if (user.balance < cost && !alreadyOwns) {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: "Not enough gems"
+            message: i18n.t('notEnoughGems', req.language)
           }) : void 0;
         }
         if (fullSet) {
@@ -13100,7 +13104,7 @@ api.wrap = function(user, main) {
             if (!(user.balance >= .75)) {
               return typeof cb === "function" ? cb({
                 code: 401,
-                message: "Not enough gems"
+                message: i18n.t('notEnoughGems', req.language)
               }) : void 0;
             }
             user.balance -= .75;
@@ -13170,7 +13174,7 @@ api.wrap = function(user, main) {
         if (task.value > stats.gp && task.type === 'reward') {
           return typeof cb === "function" ? cb({
             code: 401,
-            message: 'Not enough Gold'
+            message: i18n.t('messageNotEnoughGold', req.language)
           }) : void 0;
         }
         delta = 0;
@@ -13307,13 +13311,13 @@ api.wrap = function(user, main) {
               stats.gp = 0;
             }
         }
-        user.fns.updateStats(stats);
+        user.fns.updateStats(stats, req);
         if (typeof window === 'undefined') {
           if (direction === 'up') {
             user.fns.randomDrop({
               task: task,
               delta: delta
-            });
+            }, req);
           }
         }
         if (typeof cb === "function") {
@@ -13332,18 +13336,22 @@ api.wrap = function(user, main) {
       }
       return item;
     },
-    handleTwoHanded: function(item, type) {
+    handleTwoHanded: function(item, type, req) {
       var message, weapon, _ref;
       if (type == null) {
         type = 'equipped';
       }
       if (item.type === "shield" && ((_ref = (weapon = content.gear.flat[user.items.gear[type].weapon])) != null ? _ref.twoHanded : void 0)) {
         user.items.gear[type].weapon = 'weapon_base_0';
-        message = "" + (weapon.text()) + " is two-handed";
+        message = i18n.t('messageTwoHandled', {
+          gearText: weapon.text
+        }, req.language);
       }
       if (item.twoHanded) {
         user.items.gear[type].shield = "shield_base_0";
-        message = "" + (item.text()) + " is two-handed";
+        message = i18n.t('messageTwoHandled', {
+          gearText: item.text
+        }, req.language);
       }
       return message;
     },
@@ -13416,7 +13424,7 @@ api.wrap = function(user, main) {
         };
       })(this)), user);
     },
-    randomDrop: function(modifiers) {
+    randomDrop: function(modifiers, req) {
       var acceptableDrops, chance, drop, dropK, quest, rarity, task, _base, _base1, _base2, _name, _name1, _name2, _ref, _ref1;
       task = modifiers.task;
       chance = _.min([Math.abs(task.value - 21.27), 37.5]) / 150 + .02;
@@ -13448,7 +13456,11 @@ api.wrap = function(user, main) {
           }
           user.items.food[drop.key] += 1;
           drop.type = 'Food';
-          drop.dialog = "You've found " + drop.article + (drop.text()) + "! " + (drop.notes());
+          drop.dialog = i18n.t('messageDropFood', {
+            dropArticle: drop.article,
+            dropText: drop.text,
+            dropNotes: drop.notes
+          }, req.language);
         } else if (rarity > .3) {
           drop = user.fns.randomVal(_.where(content.eggs, {
             canBuy: true
@@ -13458,7 +13470,10 @@ api.wrap = function(user, main) {
           }
           user.items.eggs[drop.key]++;
           drop.type = 'Egg';
-          drop.dialog = "You've found a " + (drop.text()) + " Egg! " + (drop.notes());
+          drop.dialog = i18n.t('messageDropEgg', {
+            dropText: drop.text,
+            dropNotes: drop.notes
+          }, req.language);
         } else {
           acceptableDrops = rarity < .02 ? ['Golden'] : rarity < .09 ? ['Zombie', 'CottonCandyPink', 'CottonCandyBlue'] : rarity < .18 ? ['Red', 'Shade', 'Skeleton'] : ['Base', 'White', 'Desert'];
           drop = user.fns.randomVal(_.pick(content.hatchingPotions, (function(v, k) {
@@ -13469,7 +13484,10 @@ api.wrap = function(user, main) {
           }
           user.items.hatchingPotions[drop.key]++;
           drop.type = 'HatchingPotion';
-          drop.dialog = "You've found a " + (drop.text()) + " Hatching Potion! " + (drop.notes());
+          drop.dialog = i18n.t('messageDropPotion', {
+            dropText: drop.text,
+            dropNotes: drop.notes
+          }, req.language);
         }
         user._tmp.drop = drop;
         user.items.lastDrop.date = +(new Date);
@@ -13528,7 +13546,7 @@ api.wrap = function(user, main) {
         }
       })()]++;
     },
-    updateStats: function(stats) {
+    updateStats: function(stats, req) {
       var tnl, _base, _base1, _ref;
       if (stats.hp <= 0) {
         return user.stats.hp = 0;
@@ -13594,7 +13612,9 @@ api.wrap = function(user, main) {
         }
         user._tmp.drop = _.defaults(content.quests.vice1, {
           type: 'Quest',
-          dialog: "You've found the quest \"" + (content.quests.vice1.text()) + "\"!"
+          dialog: i18n.t('messageFoundQuest', {
+            questText: content.quests.vice1.text
+          }, req.language)
         });
       }
       if (!user.flags.rebirthEnabled && (user.stats.lvl >= 50 || user.achievements.ultimateGear || user.achievements.beastMaster)) {
