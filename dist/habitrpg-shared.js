@@ -10571,22 +10571,22 @@ gear = {
         value: 10
       },
       201404: {
-        text: 'Twilight Butterfly Wings',
-        notes: "Be a butterfly and flutter by!",
+        text: t('backMystery201404Text'),
+        notes: t('backMystery201404Notes'),
         mystery: mystery['201404'],
         value: 10
       }
     },
     special: {
       wondercon_red: {
-        text: 'Mighty Cape',
-        notes: 'Swishes with strength and beauty. Special edition convention armor.',
+        text: t('backSpecialWonderconRedText'),
+        notes: t('backSpecialWonderconRedNotes'),
         value: 0,
         mystery: mystery.wondercon
       },
       wondercon_black: {
-        text: 'Sneaky Cape',
-        notes: 'Spun of shadows and whispers. Special edition convention armor.',
+        text: t('backSpecialWonderconBlackText'),
+        notes: t('backSpecialWonderconBlackNotes'),
         value: 0,
         mystery: mystery.wondercon
       }
@@ -10595,27 +10595,27 @@ gear = {
   body: {
     base: {
       0: {
-        text: "No Body Accessory",
-        notes: 'No Body Accessory.',
+        text: t('bodyBase0Text'),
+        notes: t('bodyBase0Notes'),
         value: 0
       }
     },
     special: {
       wondercon_red: {
-        text: 'Ruby Collar',
-        notes: 'An attractive ruby collar! Special edition convention armor.',
+        text: t('bodySpecialWonderconRedText'),
+        notes: t('bodySpecialWonderconRedNotes'),
         value: 0,
         mystery: mystery.wondercon
       },
       wondercon_gold: {
-        text: 'Golden Collar',
-        notes: 'An attractive gold collar! Special edition convention armor.',
+        text: t('bodySpecialWonderconGoldText'),
+        notes: t('bodySpecialWonderconGoldNotes'),
         value: 0,
         mystery: mystery.wondercon
       },
       wondercon_black: {
-        text: 'Ebony Collar',
-        notes: 'An attractive ebony collar! Special edition convention armor.',
+        text: t('bodySpecialWonderconBlackText'),
+        notes: t('bodySpecialWonderconBlackNotes'),
         value: 0,
         mystery: mystery.wondercon
       }
@@ -10641,22 +10641,8 @@ gear = {
       springWarrior: {
         event: events.spring,
         specialClass: 'warrior',
-<<<<<<< HEAD
-<<<<<<< HEAD
-        text: 'Green Bunny Ears',
-        notes: "Bunny ears that keenly detect every crunch of a carrot. Confers no stat bonus. Limited Edition 2014 Spring Gear.",
-=======
-        text: (function() {
-          return i18n.t('headAccessorySpecialSpringWarriorText');
-        }),
-        notes: (function() {
-          return i18n.t('headAccessorySpecialSpringWarriorNotes');
-        }),
->>>>>>> chore(i18n): move new content to strings, update locales
-=======
         text: t('headAccessorySpecialSpringWarriorText'),
         notes: t('headAccessorySpecialSpringWarriorNotes'),
->>>>>>> fix(i18n): use right syntax and add a few strings
         value: 20
       },
       springMage: {
@@ -10674,14 +10660,14 @@ gear = {
         value: 20
       },
       wondercon_red: {
-        text: 'Mighty Mask',
-        notes: 'What a powerful face accessory! Special edition convention armor.',
+        text: t('headAccessorySpecialWonderconRedText'),
+        notes: t('headAccessorySpecialWonderconRedNotes'),
         value: 0,
         mystery: mystery.wondercon
       },
       wondercon_black: {
-        text: 'Sneaky Mask',
-        notes: 'Your motives are definitely legitimate. Special edition convention armor.',
+        text: t('headAccessorySpecialWonderconBlackText'),
+        notes: t('headAccessorySpecialWonderconBlackNotes'),
         value: 0,
         mystery: mystery.wondercon
       }
@@ -10694,8 +10680,8 @@ gear = {
         value: 10
       },
       201404: {
-        text: 'Twilight Butterfly Antennae',
-        notes: "These antennae help the wearer sense dangerous distractions!",
+        text: t('headAccessoryMistery201404Text'),
+        notes: t('headAccessoryMistery201404Notes'),
         mystery: mystery['201404'],
         value: 10
       }
@@ -11474,15 +11460,9 @@ api.quests = {
     }
   },
   gryphon: {
-<<<<<<< HEAD
-    text: "The Fiery Gryphon",
-    notes: 'The grand beastmaster, <strong>baconsaur</strong>, has come to your party seeking help. "Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!"',
-    completion: 'Defeated, the mighty beast ashamedly slinks back to its master."My word! Well done, adventurers!" <strong>baconsaur</strong> exclaims, "Please, have some of the gryphon\'s eggs. I am sure you will raise these young ones well!',
-=======
     text: t('questGryphonText'),
     notes: t('questGryphonNotes'),
     completion: t('questGryphonCompletion'),
->>>>>>> refactor(i18n): refactor & fix
     value: 4,
     boss: {
       name: t('questGryphonBoss'),
@@ -11510,15 +11490,9 @@ api.quests = {
     }
   },
   hedgehog: {
-<<<<<<< HEAD
-    text: "The Hedgebeast",
-    notes: 'Hedgehogs are a funny group of animals. They are some of the most affectionate pets a Habiteer could own. But rumor has it, if you feed them milk after midnight, they grow quite irritable. And fifty times their size. And <strong>Inventrix</strong> did just that. Oops.',
-    completion: 'Your party successfully calmed down the hedgehog! After shrinking down to a normal size, she hobbles away to her eggs. She returns squeaking and nudging some of her eggs along towards your party. Hopefully, these hedgehogs like milk better!',
-=======
     text: t('questHedgehogText'),
     notes: t('questHedgehogNotes'),
     completion: t('questHedgehogCompletion'),
->>>>>>> refactor(i18n): refactor & fix
     value: 4,
     boss: {
       name: t('questHedgehogBoss'),
@@ -11546,15 +11520,9 @@ api.quests = {
     }
   },
   ghost_stag: {
-<<<<<<< HEAD
-    text: "The Spirit of Spring",
-    notes: "Ahh, Spring. The time of year when color once again begins to fill the landscape. Gone are the cold, snowy mounds of winter. Where frost once stood, vibrant plant life takes its place. Luscious green leaves fill in the trees, grass returns to its former vivid hue, a rainbow of flowers rise along the plains, and a white mystical fog covers the land! ... Wait. Mystical fog? \"Oh no,\" <strong>Inventrix</strong> says apprehensively, \"It would appear that some kind of spirit is the cause of this fog. Oh, and it is charging right at you.\"",
-    completion: "The spirit, seemingly unwounded, lowers its nose to the ground. A calming voice envelops your party. \"I apologize for my behavior. I have only just awoken from my slumber, and it would appear my wits have not completely returned to me. Please take these as a token of my apology.\" A cluster of eggs materialize on the grass before the spirit. Without another word, the spirit runs off into the forest with flowers falling in his wake.",
-=======
     text: t('questGhostStagText'),
     notes: t('questGhostStagNotes'),
     completion: t('questGhostStagCompletion'),
->>>>>>> chore(i18n): move new content to strings, update locales
     value: 4,
     boss: {
       name: t('questGhostStagBoss'),
@@ -11668,15 +11636,9 @@ api.quests = {
     }
   },
   egg: {
-<<<<<<< HEAD
-    text: "Egg Hunt",
-    notes: "Overnight, strange plain eggs have appeared everywhere: in Matt's stables, behind the counter at the Tavern, and even among the pet eggs at the Marketplace! What a nuisance! \"Nobody knows where they came from, or what they might hatch into,\" says <strong>Megan</strong>, \"but we can't just leave them laying around! Work hard and search hard to help me gather up these mysterious eggs. Maybe if you collect enough, there will be some extras left over for you...\"",
-    completion: "You did it! In gratitude, <strong>Megan</strong> gives you ten of the eggs. \"I don't think they hatch, exactly,\" she says, \"and they certainly won't grow into mounts. But that doesn't mean you can't dye them beautiful colors!\"",
-=======
     text: t('questEggHuntText'),
     notes: t('questEggHuntNotes'),
     completion: t('questEggHuntCompletion'),
->>>>>>> fix(i18n): rebase, fix and compile
     value: 1,
     collect: {
       plainEgg: {
@@ -11790,13 +11752,8 @@ api.userDefaults = {
       attribute: 'per'
     }, {
       type: 'daily',
-<<<<<<< HEAD
-      text: 'Clean your apartment',
-      notes: 'Dailies you complete consistently will turn from yellow to green to blue, helping you track your progress. The higher you move up the ladder, the less damage you take for missing and less reward you receive for completing the goal.',
-=======
       text: t('defaultDaily2Text'),
       notes: t('defaultDaily2Notes'),
->>>>>>> refactor(i18n): refactor & fix
       value: 3,
       completed: false,
       repeat: repeat,
@@ -11811,18 +11768,18 @@ api.userDefaults = {
       attribute: 'int'
     }, {
       type: 'daily',
-      text: 'Exercise',
-      notes: 'You can add checklists to dailies and todos. As you progress through the checklist, you will get a proportionate reward.',
+      text: t('defaultDaily4Text'),
+      notes: t('defaultDaily4Notes'),
       checklist: [
         {
           completed: true,
-          text: 'Stretching'
+          text: t('defaultDaily4Checklist1')
         }, {
           completed: false,
-          text: 'Sit-ups'
+          text: t('defaultDaily4Checklist2')
         }, {
           completed: false,
-          text: 'Push-ups'
+          text: t('defaultDaily4Checklist3')
         }
       ],
       completed: false,
@@ -11833,25 +11790,20 @@ api.userDefaults = {
   todos: [
     {
       type: 'todo',
-<<<<<<< HEAD
-      text: 'Use emojis :+1:',
-      notes: 'You can use emojis in all your habit, daily, and to-do titles.',
-      completed: false,
-      attribute: 'int'
-    }, {
-      type: 'todo',
-      text: '_Learn_ **Markdown** :book:',
-      notes: 'You can use Markdown for styling your task names.',
-      completed: false,
-      attribute: 'int'
-    }, {
-      type: 'todo',
-      text: 'Call Mom :telephone_receiver:',
-      notes: 'While not completing a to-do in a set period of time will not hurt you, they will gradually change from yellow to red, thus becoming more valuable. This will encourage you to wrap up stale To-Dos.',
-=======
       text: t('defaultTodo1Text'),
       notes: t('defaultTodo1Notes'),
->>>>>>> refactor(i18n): refactor & fix
+      completed: false,
+      attribute: 'int'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo2Text'),
+      notes: t('defaultTodo2Notes'),
+      completed: false,
+      attribute: 'int'
+    }, {
+      type: 'todo',
+      text: t('defaultTodo3Text'),
+      notes: t('defaultTodo3Notes'),
       value: -3,
       completed: false,
       attribute: 'per'
@@ -11919,11 +11871,7 @@ module.exports = {
 
 },{"lodash":3}],7:[function(require,module,exports){
 (function (process){
-<<<<<<< HEAD
-var $w, api, content, moment, preenHistory, sanitizeOptions, sortOrder, _,
-=======
-var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, _,
->>>>>>> refactor(i18n): start using strings for api messages
+var $w, api, content, i18n, moment, preenHistory, sanitizeOptions, sortOrder, _,
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 moment = require('moment');
